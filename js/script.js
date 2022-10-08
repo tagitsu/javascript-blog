@@ -42,40 +42,77 @@ for(let link of links) {
   link.addEventListener('click', titleClickHandler);
 }
 
-//   generate list of titles 
+      // SELF-WRITTEN CODE
 
-function generateTitleLinks() {
-  console.log('titles list generator is ready to work :)');
+// //   generate list of titles 
 
-  
-  
+// function generateTitleLinks() {
+//   console.log('titles list generator is ready to work :)');
 
-  // activities for each article:
-  const articles = document.querySelectorAll('article');
-  for(let article of articles) {
+//   // activities for each article:
+//   const articles = document.querySelectorAll('article');
+//   for(let article of articles) {
 
-    // [DONE] get id and add to const
-    const articleId = article.getAttribute('id');
-    console.log('article ID is: ', articleId);
+//     // [DONE] get id and add to const
+//     const articleId = article.getAttribute('id');
+//     console.log('article ID is: ', articleId);
     
-    // [DONE] find element with title and add to const
-    const articleTitle = article.querySelector('.post-title').innerText;
-    console.log('title of article is: ', articleTitle);
+//     // [DONE] find element with title and add to const
+//     const articleTitle = article.querySelector('.post-title').innerText;
+//     console.log('title of article is: ', articleTitle);
     
-    // [IN PROGRESS] create link html code and add to const
-    let articleLink = '<li><a href="#' + articleId + '"><span>' + articleTitle + '</span></a></li>';
-    console.log('it is link to article ' + articleTitle + ': ' + articleLink);
+//     // [PROBLEM] create link html code and add to const
+//     const articleLink = '<li><a href="#' + articleId + '"><span>' + articleTitle + '</span></a></li>';
+//     console.log('it is link to article ' + articleTitle + ': ' + articleLink);
 
 
-      // activities on the title list
+//       // activities on the title list
 
-    const titles = document.querySelectorAll('.titles');
-    for(let title of titles) {
-      // [DONE] remove list of links from left box
-      title.innerHTML = '';
-      // [IN PROGRESS] add created html code to left column
-      title.innerHTML = articleLink;
-    }
+//     const titles = document.querySelectorAll('.titles');
+//     for(let title of titles) {
+//       // [DONE] remove list of links from left box
+//       title.innerHTML = '';
+//       // [PROBLEM] add created html code to left column
+//       title.insertAdjacentHTML('afterbegin', articleLink)
+//     }
+//   }
+// }
+// generateTitleLinks();
+
+
+      // KODILLA CODE
+
+const optArticleSelector = '.post',
+  optTitleSelector = '.post-title',
+  optTitleListSelector = '.titles';
+
+function generateTitleLinks(){
+  /* remove contents of titleList */
+  /* ... */
+
+  /* find all the articles and save them to variable: articles */
+  /* ... */
+
+  let html = '';
+
+  for(let article of articles){
+    /* get the article id */
+    /* ... */
+
+    /* find the title element */
+    /* ... */
+
+    /* get the title from the title element */
+    /* ... */
+
+    /* create HTML of the link */
+    /* ... */
+
+    /* insert link into html variable */
+    html = html + linkHTML;
   }
+
+  titleList.innerHTML = html;
 }
+
 generateTitleLinks();
