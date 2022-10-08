@@ -36,11 +36,7 @@ function titleClickHandler(){
   choosenArticle.classList.add('active');
 }
 
-const links = document.querySelectorAll('.titles a');
 
-for(let link of links) {
-  link.addEventListener('click', titleClickHandler);
-}
 
 const optArticleSelector = '.post',
   optTitleSelector = '.post-title',
@@ -84,6 +80,13 @@ function generateTitleLinks() {
     console.log('wartość zmiennej html: ', html);
   }
   titleList.insertAdjacentHTML('afterbegin', html);
+
+  const links = document.querySelectorAll('.titles a');
+  console.log('to zawiera stała links: ', links);
+
+  for(let link of links) {
+    link.addEventListener('click', titleClickHandler);
+  }
 }
 generateTitleLinks();
 
