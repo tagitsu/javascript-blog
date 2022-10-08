@@ -47,7 +47,7 @@ for(let link of links) {
 function generateTitleLinks() {
   console.log('titles list generator is ready :)');
 
-  // [IN PROGRESS] remove list of links from left box
+  // [DONE] remove list of links from left box
   const titles = document.querySelectorAll('.titles');
   for( let title of titles) {
     title.innerHTML = '';
@@ -55,7 +55,13 @@ function generateTitleLinks() {
 
   // for each article:
     // get id and add to const
+    const article = document.querySelector('article');
+    const articleId = article.getAttribute('id');
+    console.log('article ID is: ', articleId);
+
     // find element with title and add to const
+    const articleTitle = document.querySelector('.post-title').innerText;
+    console.log('title of article is: ', articleTitle);
     // create html code and add to const
     // add created html code to left column
 
