@@ -83,9 +83,7 @@ function generateTitleLinks() {
     html = html + linkHTML;
     console.log('wartość zmiennej html: ', html);
   }
-
-  titleList.innerHTML = html;
+  titleList.insertAdjacentHTML('afterbegin', html);
 }
-
 generateTitleLinks();
 
