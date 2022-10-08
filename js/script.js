@@ -54,6 +54,7 @@ function generateTitleLinks() {
   }
 
   // for each article:
+
     // get id and add to const
     const article = document.querySelector('article');
     const articleId = article.getAttribute('id');
@@ -62,7 +63,11 @@ function generateTitleLinks() {
     // find element with title and add to const
     const articleTitle = document.querySelector('.post-title').innerText;
     console.log('title of article is: ', articleTitle);
-    // create html code and add to const
+
+    // create link html code and add to const
+    const linkHtmlCode = '<a href="#' + articleId + '"><span>' + articleTitle + '</span></a>';
+    console.log('it is link to article ' + articleTitle + ': ' + linkHtmlCode);
+
     // add created html code to left column
 
 
