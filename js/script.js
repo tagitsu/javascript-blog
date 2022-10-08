@@ -32,7 +32,7 @@ function titleClickHandler(){
   const choosenArticle = document.querySelector(linkAttribute);
   console.log(choosenArticle);
 
-  /* [IN PROGRESS] add class 'active' to the correct article */
+  /* [DONE] add class 'active' to the correct article */
   choosenArticle.classList.add('active');
 }
 
