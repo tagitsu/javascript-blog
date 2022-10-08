@@ -38,6 +38,29 @@ function titleClickHandler(){
 
 const links = document.querySelectorAll('.titles a');
 
-for(let link of links){
+for(let link of links) {
   link.addEventListener('click', titleClickHandler);
 }
+
+//   generate list of titles 
+
+function generateTitleLinks() {
+  console.log('titles list generator is ready :)');
+
+  // [IN PROGRESS] remove list of links from left box
+  const titles = document.querySelectorAll('.titles');
+  for( let title of titles) {
+    title.innerHTML = '';
+  }
+
+  // for each article:
+    // get id and add to const
+    // find element with title and add to const
+    // create html code and add to const
+    // add created html code to left column
+
+
+
+
+}
+generateTitleLinks();
