@@ -11,7 +11,8 @@ function titleClickHandler(){
     activeLink.classList.remove('active');
   }
 
-  /* [IN PROGRESS] add class 'active' to the clicked link */
+  /* [DONE] add class 'active' to the clicked link */
+  event.preventDefault();
   const clickedElement = this;
   console.log('kliknięty element to: ', clickedElement);
   clickedElement.classList.add('active');
@@ -23,11 +24,16 @@ function titleClickHandler(){
   for (let activeArticle of activeArticles) {
     activeArticle.classList.remove('active');
   }
-  /* get 'href' attribute from the clicked link */
+  /* [DONE] get 'href' attribute from the clicked link */
+  const linkAttribute = clickedElement.getAttribute('href');
+  console.log(linkAttribute);
 
-  /* find the correct article using the selector (value of 'href' attribute) */
+  /* [DONE] find the correct article using the selector (value of 'href' attribute) */
+  const choosenArticle = document.querySelector(linkAttribute);
+  console.log(choosenArticle);
 
-  /* add class 'active' to the correct article */
+  /* [IN PROGRESS] add class 'active' to the correct article */
+  choosenArticle.classList.add('active');
 }
 
 const links = document.querySelectorAll('.titles a');
