@@ -45,33 +45,37 @@ for(let link of links) {
 //   generate list of titles 
 
 function generateTitleLinks() {
-  console.log('titles list generator is ready :)');
+  console.log('titles list generator is ready to work :)');
 
-  // [DONE] remove list of links from left box
-  const titles = document.querySelectorAll('.titles');
-  for( let title of titles) {
-    title.innerHTML = '';
-  }
+  
+  
 
-  // for each article:
+  // activities for each article:
+  const articles = document.querySelectorAll('article');
+  for(let article of articles) {
 
-    // get id and add to const
-    const article = document.querySelector('article');
+    // [DONE] get id and add to const
     const articleId = article.getAttribute('id');
     console.log('article ID is: ', articleId);
-
-    // find element with title and add to const
-    const articleTitle = document.querySelector('.post-title').innerText;
+    
+    // [DONE] find element with title and add to const
+    const articleTitle = article.querySelector('.post-title').innerText;
     console.log('title of article is: ', articleTitle);
-
-    // create link html code and add to const
-    const linkHtmlCode = '<a href="#' + articleId + '"><span>' + articleTitle + '</span></a>';
-    console.log('it is link to article ' + articleTitle + ': ' + linkHtmlCode);
-
-    // add created html code to left column
+    
+    // [IN PROGRESS] create link html code and add to const
+    let articleLink = '<li><a href="#' + articleId + '"><span>' + articleTitle + '</span></a></li>';
+    console.log('it is link to article ' + articleTitle + ': ' + articleLink);
 
 
+      // activities on the title list
 
-
+    const titles = document.querySelectorAll('.titles');
+    for(let title of titles) {
+      // [DONE] remove list of links from left box
+      title.innerHTML = '';
+      // [IN PROGRESS] add created html code to left column
+      title.innerHTML = articleLink;
+    }
+  }
 }
 generateTitleLinks();
