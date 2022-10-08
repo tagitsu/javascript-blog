@@ -36,8 +36,6 @@ function titleClickHandler(){
   choosenArticle.classList.add('active');
 }
 
-
-
 const optArticleSelector = '.post',
   optTitleSelector = '.post-title',
   optTitleListSelector = '.titles';
@@ -89,4 +87,3 @@ function generateTitleLinks() {
   }
 }
 generateTitleLinks();
-
