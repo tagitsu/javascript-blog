@@ -87,14 +87,21 @@ body {
   list-style-type: none;
   margin: 0;
   padding: 0;
-  li a {
+
+  li {
+    padding: 5px 0;
+
+    a {
     text-decoration: none;
     color: $color-dark;
 
-    &:hover {
-      color: $color-vivid;
+      &:hover {
+        color: $color-vivid;
+      }
     }
   }
+  
+  
   .active {
     color: $color-mid;
   }
@@ -117,19 +124,12 @@ body {
 /* Post */
 
 .post {
-  position: absolute;
+  //position: absolute;
   padding: 30px 20px;
-  top: 0;
-  left: 0;
-  opacity: 0;
-  transition: all .2s ease-in-out;
-  display: flex;
-  flex-direction: column;
+  display: none;
 
   &.active {
-    opacity: 1;
-    position: absolute;
-    z-index: 1;
+    display: block;
   }
 }
 
