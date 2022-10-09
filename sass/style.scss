@@ -17,6 +17,7 @@ $font-text: 'Source Sans Pro', sans-serif;
 
 *, *::before, *::after {
   box-sizing: border-box;
+  border: 1px solid grey;
 }
 
 body {
@@ -59,6 +60,7 @@ body {
 
 .posts {
   flex: 2 0 0;
+  position: relative;
 }
 
 .sidebar, .posts {
@@ -88,6 +90,10 @@ body {
   li a {
     text-decoration: none;
     color: $color-dark;
+
+    &:hover {
+      color: $color-vivid;
+    }
   }
   .active {
     color: $color-mid;
@@ -111,18 +117,34 @@ body {
 /* Post */
 
 .post {
-  display: none;
+  position: absolute;
+  padding: 30px 20px;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: all .2s ease-in-out;
+  display: flex;
+  flex-direction: column;
+
   &.active {
-    display: block;
+    opacity: 1;
+    position: absolute;
+    z-index: 1;
   }
 }
 
 .post-author {
   font-style: italic;
+  flex: 1 0 0;
+}
+
+.post-content {
+  flex: 1 0 0;
 }
 
 .post-tags {
   display: flex;
+  flex: 1 0 0;
   p {
     margin: 0 10px 0 0;
   }
@@ -130,7 +152,9 @@ body {
 
 .post-title {
   font-family: $font-header;
-  font-weight: 500;
+  color: $color-vivid;
+  font-weight: 700;
   letter-spacing: 2px;
-  font-size: larger;
+  font-size: 20px;
+  flex: 1 0 0;
 }
