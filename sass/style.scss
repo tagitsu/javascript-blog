@@ -17,11 +17,13 @@ $font-text: 'Source Sans Pro', sans-serif;
 
 *, *::before, *::after {
   box-sizing: border-box;
-  border: 1px solid grey;
 }
 
 body {
-  background: $color-bg;
+  background-image: url(../images/maple.png);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
   font-family: $font-text;
   color: $color-dark;
   font-weight: 300;
@@ -79,6 +81,9 @@ body {
   font-size: 104px;
   line-height: 1;
   text-align: center;
+  
+
+
 }
 
 /* Lists */
@@ -94,6 +99,7 @@ body {
     a {
     text-decoration: none;
     color: $color-dark;
+    transition: color .2s ease-in-out;
 
       &:hover {
         color: $color-vivid;
@@ -147,6 +153,7 @@ body {
   flex: 1 0 0;
   p {
     margin: 0 10px 0 0;
+    padding: 5px 0;
   }
 }
 
