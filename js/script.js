@@ -87,3 +87,40 @@ function generateTitleLinks() {
   }
 } 
 generateTitleLinks();
+
+function generateTags(){
+  /* find all articles */
+  const articles = document.querySelectorAll('article');
+  
+  /* START LOOP: for every article: */
+  for(let article of articles) {
+    /* find tags wrapper */
+    const tagWrapper = document.querySelector('.list-horizontal');
+    console.log('to jest tagWrapper: ', tagWrapper);
+    /* make html variable with empty string */
+    let html = '';
+    /* get tags from data-tags attribute */
+    const tags = article.getAttribute('data-tags');
+    console.log('to jest wartość stałej tags: ', tags);
+    /* split tags into array */
+    const tagsArray = tags.split();
+    console.log('to jest tablica z tagów artykułów: ', tagsArray);
+
+     /* START LOOP: for each tag */
+    for(let tag of tags) {
+      /* generate HTML of the link */
+      const linkTagCode = '<li><a href="#' + tag + '">' + tag + '</a></li>';
+      /* add generated code to html variable */
+      html = linkTagCode;
+      console.log('to jest kod html jednego taga: ', html);
+    }/* END LOOP: for each tag */
+    
+    /* insert HTML of all the links into the tags wrapper */
+
+  }
+    
+
+  /* END LOOP: for every article: */
+}
+
+generateTags();
