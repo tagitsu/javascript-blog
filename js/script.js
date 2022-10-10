@@ -175,6 +175,7 @@ function generateAuthors() {
     // [] insert html code to author link in article
     authorWrapper.insertAdjacentHTML('beforeend', html);
   }// END LOOP for each article
+
 };
 generateAuthors();
 
