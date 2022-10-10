@@ -30,7 +30,10 @@ function titleClickHandler() {
   choosenArticle.classList.add('active');
 };
 
-const optArticleSelector = '.post', optTitleSelector = '.post-title', optTitleListSelector = '.titles';
+const optArticleSelector = '.post',
+optTitleSelector = '.post-title',
+optTitleListSelector = '.titles',
+optArticleTagsSelector = '.post-tags .list';
 
 function generateTitleLinks(customSelector = '') {
   /* [DONE] remove contents of titleList */
@@ -82,20 +85,24 @@ function generateTags() {
   /* START LOOP: for every article: */
   for (let article of articles) {
     /* [DONE] find tags wrapper */
-    const tagWrapper = document.querySelector('.list-horizontal');
+    const tagWrapper = article.querySelector(optArticleTagsSelector);
+    console.log('to jest tagWrapper: ', tagWrapper);
     /* [DONE] make html variable with empty string */
     let html = '';
     /* [DONE] get tags from data-tags attribute */
     const postTags = article.getAttribute('data-tags');
+    console.log('to jest postTags: ', postTags);
     /* [DONE] split tags into array */
     const tags = postTags.split(' ');
+    console.log('to jest tags: ', tags);
 
     /* START LOOP: for each tag */
     for(let tag of tags) {
       /* [DONE] generate HTML of the link */
       const linkTagCode = '<li><a href="#tag-' + tag + '">' + tag + '</a></li>';
+      console.log('to jest linkTagCode: ', linkTagCode);
       /* [DONE] add generated code to html variable */
-      html = linkTagCode;
+      html = html + linkTagCode;
     }/* END LOOP: for each tag */
 
     /* [DONE] insert HTML of all the links into the tags wrapper */
