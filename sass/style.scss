@@ -42,6 +42,7 @@ body {
   color: $color-mid;
   font-family: $font-header;
   font-weight: 600;
+
   span {
     text-transform: none;
     font-weight: 400;
@@ -81,9 +82,6 @@ body {
   font-size: 104px;
   line-height: 1;
   text-align: center;
-  
-
-
 }
 
 /* Lists */
@@ -97,17 +95,17 @@ body {
     padding: 5px;
 
     a {
-    text-decoration: none;
-    color: $color-dark;
-    transition: color .2s ease-in-out;
+      text-decoration: none;
+      color: $color-dark;
+      transition: color .2s ease-in-out;
 
       &:hover {
         color: $color-vivid;
       }
     }
   }
-  
-  
+
+
   .active {
     color: $color-mid;
   }
@@ -151,6 +149,7 @@ body {
 .post-tags {
   display: flex;
   flex: 1 0 0;
+
   p {
     margin: 0 10px 0 0;
     padding: 5px 0;
