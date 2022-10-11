@@ -212,29 +212,24 @@ addClickListenersToTags();
 function generateAuthors() {
   // [DONE] find all articles and save them in const
   const articles = document.querySelectorAll(optArticleSelector);
+  // [DONE] make html variable with empty string
+  let html = '';
+  // [DONE] find author wrapper in the article
+  const authorWrapper = document.querySelector(optArticleAuthorSelector);
 
   // [] for each article - START LOOP
   for (let article of articles) {
-    // [DONE] find author wrapper in the article
-    const authorWrapper = document.querySelector(optArticleAuthorSelector);
-
-    // [DONE] make html variable with empty string
-    let html = '';
-
     // [] get author from data-author attribute
     const postAuthor = article.getAttribute('data-author');
-
     const authorName = postAuthor.replace('-', ' ');
-
     // [] generate html code of link to author
     const authorLink = `<a href="#author-${postAuthor}">${authorName}</a>`;
-
     // [] add generated code to html variable
     html = authorLink;
-
-    // [] insert html code to author link in article
-    authorWrapper.insertAdjacentHTML('beforeend', html);
+    console.log('to jest zawartość authorLink :', authorLink);
   } // END LOOP for each article
+  // [] insert html code to author link in article
+  authorWrapper.insertAdjacentHTML('beforeend', html);
 }
 generateAuthors();
 
