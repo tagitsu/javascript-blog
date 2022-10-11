@@ -125,6 +125,26 @@ function generateTags() {
   /* [NEW - tags cloud] find list of tags in right column */
   const tagList = document.querySelector(optTagsListSelector);
   console.log(allTags);
+
+  function calculateTagsParams(tags) {
+    let tag;
+
+
+    for (tag in tags) {
+      const min = Math.min(tags[tag]);
+      console.log('min: ', min);
+      const max = Math.max(tags[tag]);
+      console.log('max: ', max);
+      console.log(' dla tagu ' + tag + ' ilość powtórzeń wynosi: ' + tags[tag]);
+    }
+
+  }
+
+
+  // [] create const with tags parameters
+  const tagsParams = calculateTagsParams(allTags);
+  console.log('zawartość tagsParams: ', tagsParams);
+
   // [NEW] create varible for all links HTML code
   let allTagsHTML = '';
 
@@ -136,6 +156,9 @@ function generateTags() {
 
   } // END LOOP for each tag in allTags object
   console.log(allTagsHTML);
+
+  // [NEW] add html code to tagList
+  tagList.innerHTML = allTagsHTML;
 }
 generateTags();
 
