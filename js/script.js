@@ -34,7 +34,8 @@ const optArticleSelector = '.post',
   optTitleSelector = '.post-title',
   optTitleListSelector = '.titles',
   optArticleTagsSelector = '.post-tags .list',
-  optArticleAuthorSelector = '.post-author';
+  optArticleAuthorSelector = '.post-author',
+  optTagsListSelector = '.tags';
 
 function generateTitleLinks(customSelector = '') {
   /* [DONE] remove contents of titleList */
@@ -79,6 +80,9 @@ function generateTitleLinks(customSelector = '') {
 generateTitleLinks();
 
 function generateTags() {
+  /* [NEW - tags cloud] create a new variable allTags with an empty array */
+  let allTags = [];
+
   /* [DONE] find all articles */
   const articles = document.querySelectorAll(optArticleSelector);
 
@@ -104,11 +108,26 @@ function generateTags() {
 
       /* [DONE] add generated code to html variable */
       html = html + linkTagCode;
+
+      /* [NEW - tags cloud] check if this link is NOT already in allTags */
+      if(allTags.indexOf(linkTagCode) == -1){
+        /* [NEW - tags cloud] add generated code to allTags array */
+        allTags.push(linkTagCode);
+      }
     }/* END LOOP: for each tag */
 
     /* [DONE] insert HTML of all the links into the tags wrapper */
     tagWrapper.insertAdjacentHTML('afterbegin', html);
   }/* END LOOP: for every article: */
+
+  /* [NEW - tags cloud] find list of tags in right column */
+  const tagList = document.querySelector(optTagsListSelector);
+
+  console.log('to jest element tagList:', tagList);
+  console.log('to jest tablica allTags:', allTags);
+  /* [NEW - tags cloud] add html from allTags to tagList */
+  tagList.innerHTML = allTags.join(' ');
+
 }
 generateTags();
 
