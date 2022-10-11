@@ -180,7 +180,7 @@ function generateAuthors() {
     const authorLink = `<a href="#author-${postAuthor}">${authorName}</a>`;
 
     // [] add generated code to html variable
-    html = html + authorLink;
+    html = authorLink;
 
     // [] insert html code to author link in article
     authorWrapper.insertAdjacentHTML('beforeend', html);
