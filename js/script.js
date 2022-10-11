@@ -80,8 +80,8 @@ function generateTitleLinks(customSelector = '') {
 generateTitleLinks();
 
 function generateTags() {
-  /* [NEW - tags cloud] create a new variable allTags with an empty array */
-  let allTags = [];
+  /* [NEW - tags cloud] create a new variable allTags with an empty object */
+  let allTags = {};
 
   /* [DONE] find all articles */
   const articles = document.querySelectorAll(optArticleSelector);
@@ -110,11 +110,13 @@ function generateTags() {
       html = html + linkTagCode;
 
       /* [NEW - tags cloud] check if this link is NOT already in allTags */
-      if(allTags.indexOf(linkTagCode) == -1){
-        /* [NEW - tags cloud] add generated code to allTags array */
-        allTags.push(linkTagCode);
+      if(!allTags.hasOwnProperty(tag)) {
+        /* [NEW - tags cloud] add tag to alltags object */
+        allTags[tag] = 1;
+      } else {
+        allTags[tag]++;
       }
-    }/* END LOOP: for each tag */
+    } /* END LOOP: for each tag */
 
     /* [DONE] insert HTML of all the links into the tags wrapper */
     tagWrapper.insertAdjacentHTML('afterbegin', html);
@@ -122,12 +124,18 @@ function generateTags() {
 
   /* [NEW - tags cloud] find list of tags in right column */
   const tagList = document.querySelector(optTagsListSelector);
+  console.log(allTags);
+  // [NEW] create varible for all links HTML code
+  let allTagsHTML = '';
 
-  console.log('to jest element tagList:', tagList);
-  console.log('to jest tablica allTags:', allTags);
-  /* [NEW - tags cloud] add html from allTags to tagList */
-  tagList.innerHTML = allTags.join(' ');
+  //START LOOP for each tag in allTags
+  for(let tag in allTags) {
+    // generate code of the link and add it to allTagsHTML
+    allTagsHTML += '<li><a href="#tag-"' + tag + '>' + tag + '</a><span>(' + allTags[tag] + ')</span></li>';
 
+
+  } // END LOOP for each tag in allTags object
+  console.log(allTagsHTML);
 }
 generateTags();
 
