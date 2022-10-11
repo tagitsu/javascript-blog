@@ -159,21 +159,16 @@ function generateAuthors() {
     const authorWrapper = document.querySelector(optArticleAuthorSelector);
     // [DONE] make html variable with empty string
     let html = '';
-
     // [] get author from data-author attribute
-    const postAuthors = article.getAttribute('data-author');
-    console.log('to jest const postAuthors: ', postAuthors);
-    const authorName = postAuthors.replace('-', ' ');
-    console.log('to jest const authorName: ', authorName);
-    const authors = postAuthors.split(' ');
-    // START LOOP for each author
-    for (let author of authors) {
-      // [] generate html code of link to author
-    const authorLink = '<a href="#author-' + author + '">' + authorName + '</a>';
+    const postAuthor = article.getAttribute('data-author');
+    console.log('to jest zawartość atrybutu data-author artykułu: ', postAuthor);
+    const authorName = postAuthor.replace('-', ' ');
+    console.log('to jest imię autora pozbawione myślnika: ', authorName);
+    // [] generate html code of link to author
+    const authorLink = `<a href="#author-${postAuthor}">${authorName}</a>`;
     console.log('to jest link do autora: ', authorLink);
     // [] add generated code to html variable
     html = html + authorLink;
-    } // END LOOP for authors
     // [] insert html code to author link in article
     authorWrapper.insertAdjacentHTML('beforeend', html);
   } // END LOOP for each article
@@ -192,7 +187,7 @@ function authorClickHandler(event) {
   /* [DONE] make a new constant "author" and extract author name from the "href" constant */
   const author = href.replace('#author-', '');
   console.log('to jest wyjęte nazwisko autora z href:', author);
-  /* [] find all author links with class active */
+  /* [] find author link with class active */
   const activeAuthors = document.querySelectorAll('a.active[href^="#author-"]');
   console.log('to są wszystkie linki autorów z klasa active: ', activeAuthors);
   /* [] remove class active LOOP */
@@ -207,7 +202,7 @@ function authorClickHandler(event) {
     foundedAuthor.classList.add('active');
   }
   /* execute function "generateTitleLinks" with article selector as argument
-  generate all cliced author articles in left sidebar */
+  generate all clicked author articles in left sidebar */
   generateTitleLinks('[data-author~="' + author + '"]');
 }
 
