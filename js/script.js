@@ -260,31 +260,31 @@ function generateAuthors() {
     const authorWrapper = article.querySelector(optArticleAuthorSelector);
 
     // [DONE] get author from data-author attribute
-    const postAuthor = article.getAttribute('data-author');
-    const authorName = postAuthor.replace('-', ' ');
+    const hrefAuthor = article.getAttribute('data-author');
+    const authorName = hrefAuthor.replace('-', ' ');
 
     // [DONE] generate html code of link to author
-    const authorLink = `<a href="#author-${postAuthor}">${authorName}</a>`;
+    const authorLink = `<a href="#author-${hrefAuthor}">${authorName}</a>`;
 
 
     // [DONE] add generated code to html variable
     html = authorLink;
     // [DONE] insert html code to author link in article
     authorWrapper.insertAdjacentHTML('beforeend', html);
-    if(!allAuthors.hasOwnProperty(authorName)) {
+    if(!allAuthors.hasOwnProperty(hrefAuthor)) {
       // add authors to object
-      allAuthors[authorName] = 1;
+      allAuthors[hrefAuthor] = 1;
     } else {
-      allAuthors[authorName]++;
+      allAuthors[hrefAuthor]++;
     }
   } // END LOOP for each article
-
+console.log('allAuthoirs:', allAuthors);
   // START LOOP for each author
-  for(let authorName in allAuthors) {
+  for(let hrefAuthor in allAuthors) {
     // get out values of authors articles number
-    const authorArticlesNumber = allAuthors[authorName];
+    const authorArticlesNumber = allAuthors[hrefAuthor];
     // generate html code to author link (sidebar)
-    let authorSidebarLink = '<li><a href="#' + authorName + '">' + authorName + '</a><span> - ' + authorArticlesNumber + '</span></li>';
+    let authorSidebarLink = '<li><a href="#author-' + hrefAuthor + '">' + hrefAuthor + '</a><span> - ' + authorArticlesNumber + '</span></li>';
     // add sidebar link code to variable
     htmlSidebar = htmlSidebar + authorSidebarLink;
   } // END LOOP for each author
