@@ -236,6 +236,15 @@ function addClickListenersToTags() {
     /* [DONE] add tagClickHandler as event listener for that link */
     tagLink.addEventListener('click', tagClickHandler);
   }/* END LOOP: for each link */
+
+  /* [DONE] find all links to tags in tags cloud*/
+  const tagsCloud = document.querySelectorAll('.tags a');
+
+  /* START LOOP: for each link */
+  for (let tagCloud of tagsCloud) {
+    /* [DONE] add tagClickHandler as event listener for that link */
+    tagCloud.addEventListener('click', tagClickHandler);
+  }/* END LOOP: for each link */
 }
 addClickListenersToTags();
 
