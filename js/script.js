@@ -218,7 +218,7 @@ function tagClickHandler(event) {
   const foundedTags = document.querySelectorAll('a[href="' + href + '"]');
 
   /* START LOOP: for each found tag link */
-  for (let foundedTag of foundedTags) {
+  for(let foundedTag of foundedTags) {
     /* add class active */
     foundedTag.classList.add('active');
   } /* END LOOP: for each found tag link */
@@ -243,7 +243,7 @@ function generateAuthors() {
   // [DONE] find all articles and save them in const
   const articles = document.querySelectorAll(optArticleSelector);
 
-  // miejsce na linki autorów
+  // [DONE] find ul list for authors in sidebar
   const authorList = document.querySelector(optAuthorsListSelector);
 
   // [DONE] make html variable with empty string
@@ -253,7 +253,7 @@ function generateAuthors() {
   // make variable for link to authors in sidebar
   let htmlSidebar = '';
 
-  // [IN PROGRESS] for each article - START LOOP
+  // [DONE] for each article - START LOOP
   for(let article of articles) {
 
     // [DONE] find author wrapper in the article
@@ -272,31 +272,26 @@ function generateAuthors() {
     // [DONE] insert html code to author link in article
     authorWrapper.insertAdjacentHTML('beforeend', html);
     if(!allAuthors.hasOwnProperty(authorName)) {
-      // dodaję do obiektu authors nazwiska autorów i tworzę linki
+      // add authors to object
       allAuthors[authorName] = 1;
-    } else { // jesli sie powtarzaja dodaje wartość 1
+    } else {
       allAuthors[authorName]++;
     }
   } // END LOOP for each article
 
-  // pętla dla każdego autora
+  // START LOOP for each author
   for(let authorName in allAuthors) {
-    // wyjmuję wartości
+    // get out values of authors articles number
     const authorArticlesNumber = allAuthors[authorName];
     // generate html code to author link (sidebar)
-    let authorSidebarLink = '<li><a href="#' + authorName + '">' + authorName + '</a><span> ' + authorArticlesNumber + ' </span></li>';
+    let authorSidebarLink = '<li><a href="#' + authorName + '">' + authorName + '</a><span> - ' + authorArticlesNumber + '</span></li>';
     // add sidebar link code to variable
     htmlSidebar = htmlSidebar + authorSidebarLink;
-    console.log('linki w petli:', htmlSidebar);
-  }
+  } // END LOOP for each author
   authorList.innerHTML = htmlSidebar;
-  console.log('miejsce:', authorList);
-  console.log('linki:', htmlSidebar);
-
 }
 generateAuthors();
 
-// what is happened when you click on author link
 function authorClickHandler(event) {
   /* [DONE] prevent default action for this event */
   event.preventDefault();
@@ -310,17 +305,17 @@ function authorClickHandler(event) {
   /* [DONE] make a new constant "author" and extract author name from the "href" constant */
   const author = href.replace('#author-', '');
 
-  /* [] find author link with class active */
+  /* [DONE] find author link with class active */
   const activeAuthors = document.querySelectorAll('a.active[href^="#author-"]');
 
-  /* [] remove class active LOOP */
-  for (let activeAuthor of activeAuthors) {
+  /* [DONE] remove class active LOOP */
+  for(let activeAuthor of activeAuthors) {
     activeAuthor.classList.remove('active');
   }
-  /* [] find all authors links with "href" attribute equal to the "href" constant */
+  /* [DONE] find all authors links with "href" attribute equal to the "href" constant */
   const foundedAuthors = document.querySelectorAll('a[href="' + href + '"]');
 
-  for (let foundedAuthor of foundedAuthors) {
+  for(let foundedAuthor of foundedAuthors) {
     /* add class active */
     foundedAuthor.classList.add('active');
   }
@@ -330,18 +325,13 @@ function authorClickHandler(event) {
 }
 
 function addClickListenersToAuthors() {
-  // [] find all links to authors
+  // [DONE] find all links to authors
   const authorLinks = document.querySelectorAll('.post-author a');
 
   // START LOOP: for each author
-  for (let authorLink of authorLinks) {
-    /* [] add authorClickHandler as event listener for that link */
+  for(let authorLink of authorLinks) {
+    /* [DONE] add authorClickHandler as event listener for that link */
     authorLink.addEventListener('click', authorClickHandler);
   }/* END LOOP: for each author */
 }
 addClickListenersToAuthors();
-
-
-
-
-
