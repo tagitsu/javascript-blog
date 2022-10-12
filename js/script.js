@@ -81,9 +81,7 @@ function generateTitleLinks(customSelector = '') {
 }
 generateTitleLinks();
 
-function calculateTagClass(count, params) {
 
-}
 
 function generateTags() {
   /* [NEW - tags cloud] create a new variable allTags with an empty object */
@@ -130,7 +128,6 @@ function generateTags() {
 
   /* [NEW - tags cloud] find list of tags in right column */
   const tagList = document.querySelector(optTagsListSelector);
-  console.log('to jest obiekt allTags: ', allTags);
 
   function calculateTagsParams(tags) {
     // [DONE] create empty array for tags numbers (amount)
@@ -141,24 +138,17 @@ function generateTags() {
     for (let tag in tags) {
       // read object properties (from each tag)
       const tagNumber = tags[tag];
-      console.log('to jest ilość tagu: ', tagNumber);
       // add each number to array
       tagNumberArray.push(tagNumber);
     }// END LOOP
 
-    console.log('to jest tablica z ilościami tagów: ', tagNumberArray);
     // get the min and max values ​​from an array
     const min = Math.min.apply(null, tagNumberArray);
-    console.log('to jest minimalna wartość z tablicy ilości tagów: ', min);
     const max = Math.max.apply(null, tagNumberArray);
-    console.log('to jest maksymalna wartość z tablicy ilości tagów: ', max);
 
     // add min and max values to object
     tagsMinMaxNumber.min = min;
     tagsMinMaxNumber.max = max;
-
-    console.log('to jest obiekt z min i max tagami: ', tagsMinMaxNumber);
-
     return tagsMinMaxNumber;
   }
 
@@ -166,18 +156,49 @@ function generateTags() {
   const tagsParams = calculateTagsParams(allTags);
   console.log('zawartość tagsParams: ', tagsParams);
 
+  function calculateTagClass(count, params) {
+
+    // get max value of tags amount;
+    const max = params.max;
+    console.log('to jest max:', max);
+
+    // max value divide by number of category
+    const categoryLength = Math.floor(max / optCloudClassCount);
+    console.log('max podzielony przez liczbę kategorii: ', categoryLength);
+
+    if(count <= categoryLength*1) {
+      console.log('należy do kategorii 5');
+      tagClassName = optCloudClassPrefix + '5';
+    } else if (count > categoryLength*1 && count <= categoryLength*2) {
+      console.log('należy do kategorii 4');
+      tagClassName = optCloudClassPrefix + '4';
+    } else if (count > categoryLength*2 && count <= categoryLength*3) {
+      console.log('należy do kategorii 3');
+      tagClassName = optCloudClassPrefix + '3';
+    } else if (count > categoryLength*3 && count <= categoryLength*4) {
+      console.log('należy do kategorii 2');
+      tagClassName = optCloudClassPrefix + '2';
+    } else if (count > categoryLength*4 && count <= categoryLength*5) {
+      console.log('należy do kategorii 1');
+      tagClassName = optCloudClassPrefix + '1';
+      console.log('tag klasa 1: ', tagClassName);
+    }
+    return tagClassName;
+  }
+  // create variable for category class name;
+  let tagClassName = '';
   // [NEW] create varible for all links HTML code
   let allTagsHTML = '';
 
   //START LOOP for each tag in allTags
   for(let tag in allTags) {
     // create class name for tag
-    const tagClass = calculateTagClass(allTags[tag], tagsParams);
+    tagClassName = calculateTagClass(allTags[tag], tagsParams);
     // generate code of the link and add it to allTagsHTML
-    allTagsHTML += '<li><a href="#tag-' + tag + '" class="' + tagClass + '">' + tag + '</a><span>(' + allTags[tag] + ')</span></li>';
-    console.log('to link do chmuty tagów: ', allTagsHTML);
+    allTagsHTML += '<li><a href="#tag-' + tag + '" class="' + tagClassName + '">' + tag + '</a><span>(' + allTags[tag] + ')</span></li>';
+    console.log('to są linki do chmury:', allTagsHTML);
+    console.log('to są argumenty:', allTags[tag], ' i ', tagsParams);
   } // END LOOP for each tag in allTags object
-  console.log(allTagsHTML);
 
   // [NEW] add html code to tagList
   tagList.innerHTML = allTagsHTML;
@@ -248,7 +269,6 @@ function generateAuthors() {
     const authorLink = `<a href="#author-${postAuthor}">${authorName}</a>`;
     // [] add generated code to html variable
     html = authorLink;
-    console.log('to jest zawartość authorLink :', authorLink);
   } // END LOOP for each article
   // [] insert html code to author link in article
   authorWrapper.insertAdjacentHTML('beforeend', html);
