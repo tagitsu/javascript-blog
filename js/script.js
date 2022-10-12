@@ -124,22 +124,37 @@ function generateTags() {
 
   /* [NEW - tags cloud] find list of tags in right column */
   const tagList = document.querySelector(optTagsListSelector);
-  console.log(allTags);
+  console.log('to jest obiekt allTags: ', allTags);
 
   function calculateTagsParams(tags) {
-    let tag;
+    // [DONE] create empty array for tags numbers (amount)
+    const tagNumberArray = [];
+    // [DONE] create empty object for min and max tags numbers
+    const tagsMinMaxNumber = {};
+    // START LOOP for each tag
+    for (let tag in tags) {
+      // read object properties (from each tag)
+      const tagNumber = tags[tag];
+      console.log('to jest ilość tagu: ', tagNumber);
+      // add each number to array
+      tagNumberArray.push(tagNumber);
+    }// END LOOP
 
+    console.log('to jest tablica z ilościami tagów: ', tagNumberArray);
+    // get the min and max values ​​from an array
+    const min = Math.min.apply(null, tagNumberArray);
+    console.log('to jest minimalna wartość z tablicy ilości tagów: ', min);
+    const max = Math.max.apply(null, tagNumberArray);
+    console.log('to jest maksymalna wartość z tablicy ilości tagów: ', max);
 
-    for (tag in tags) {
-      const min = Math.min(tags[tag]);
-      console.log('min: ', min);
-      const max = Math.max(tags[tag]);
-      console.log('max: ', max);
-      console.log(' dla tagu ' + tag + ' ilość powtórzeń wynosi: ' + tags[tag]);
-    }
+    // add min and max values to object
+    tagsMinMaxNumber.min = min;
+    tagsMinMaxNumber.max = max;
 
+    console.log('to jest obiekt z min i max tagami: ', tagsMinMaxNumber);
+
+    return tagsMinMaxNumber;
   }
-
 
   // [] create const with tags parameters
   const tagsParams = calculateTagsParams(allTags);
