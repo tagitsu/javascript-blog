@@ -35,6 +35,7 @@ const optArticleSelector = '.post',
   optTitleListSelector = '.titles',
   optArticleTagsSelector = '.post-tags .list',
   optArticleAuthorSelector = '.post-author',
+  optAuthorsListSelector = '.authors',
   optTagsListSelector = '.tags',
   optCloudClassCount = 5,
   optCloudClassPrefix = 'tag-size-';
@@ -80,8 +81,6 @@ function generateTitleLinks(customSelector = '') {
   }
 }
 generateTitleLinks();
-
-
 
 function generateTags() {
   /* [NEW - tags cloud] create a new variable allTags with an empty object */
@@ -142,7 +141,6 @@ function generateTags() {
       tagNumberArray.push(tagNumber);
     }// END LOOP
 
-    // get the min and max values ​​from an array
     const min = Math.min.apply(null, tagNumberArray);
     const max = Math.max.apply(null, tagNumberArray);
 
@@ -154,34 +152,25 @@ function generateTags() {
 
   // [] create const with tags parameters
   const tagsParams = calculateTagsParams(allTags);
-  console.log('zawartość tagsParams: ', tagsParams);
 
   function calculateTagClass(count, params) {
 
     // get max value of tags amount;
     const max = params.max;
-    console.log('to jest max:', max);
 
     // max value divide by number of category
     const categoryLength = Math.floor(max / optCloudClassCount);
-    console.log('max podzielony przez liczbę kategorii: ', categoryLength);
 
     if(count <= categoryLength*1) {
-      console.log('należy do kategorii 5');
       tagClassName = optCloudClassPrefix + '5';
     } else if (count > categoryLength*1 && count <= categoryLength*2) {
-      console.log('należy do kategorii 4');
       tagClassName = optCloudClassPrefix + '4';
     } else if (count > categoryLength*2 && count <= categoryLength*3) {
-      console.log('należy do kategorii 3');
       tagClassName = optCloudClassPrefix + '3';
     } else if (count > categoryLength*3 && count <= categoryLength*4) {
-      console.log('należy do kategorii 2');
       tagClassName = optCloudClassPrefix + '2';
     } else if (count > categoryLength*4 && count <= categoryLength*5) {
-      console.log('należy do kategorii 1');
       tagClassName = optCloudClassPrefix + '1';
-      console.log('tag klasa 1: ', tagClassName);
     }
     return tagClassName;
   }
@@ -196,8 +185,6 @@ function generateTags() {
     tagClassName = calculateTagClass(allTags[tag], tagsParams);
     // generate code of the link and add it to allTagsHTML
     allTagsHTML += '<li><a href="#tag-' + tag + '" class="' + tagClassName + '">' + tag + '</a><span>(' + allTags[tag] + ')</span></li>';
-    console.log('to są linki do chmury:', allTagsHTML);
-    console.log('to są argumenty:', allTags[tag], ' i ', tagsParams);
   } // END LOOP for each tag in allTags object
 
   // [NEW] add html code to tagList
@@ -255,23 +242,57 @@ addClickListenersToTags();
 function generateAuthors() {
   // [DONE] find all articles and save them in const
   const articles = document.querySelectorAll(optArticleSelector);
+
+  // miejsce na linki autorów
+  const authorList = document.querySelector(optAuthorsListSelector);
+
   // [DONE] make html variable with empty string
   let html = '';
-  // [DONE] find author wrapper in the article
-  const authorWrapper = document.querySelector(optArticleAuthorSelector);
+  // create object of authors
+  const allAuthors = {};
+  // make variable for link to authors in sidebar
+  let htmlSidebar = '';
 
-  // [] for each article - START LOOP
-  for (let article of articles) {
-    // [] get author from data-author attribute
+  // [IN PROGRESS] for each article - START LOOP
+  for(let article of articles) {
+
+    // [DONE] find author wrapper in the article
+    const authorWrapper = article.querySelector(optArticleAuthorSelector);
+
+    // [DONE] get author from data-author attribute
     const postAuthor = article.getAttribute('data-author');
     const authorName = postAuthor.replace('-', ' ');
-    // [] generate html code of link to author
+
+    // [DONE] generate html code of link to author
     const authorLink = `<a href="#author-${postAuthor}">${authorName}</a>`;
-    // [] add generated code to html variable
+
+
+    // [DONE] add generated code to html variable
     html = authorLink;
+    // [DONE] insert html code to author link in article
+    authorWrapper.insertAdjacentHTML('beforeend', html);
+    if(!allAuthors.hasOwnProperty(authorName)) {
+      // dodaję do obiektu authors nazwiska autorów i tworzę linki
+      allAuthors[authorName] = 1;
+    } else { // jesli sie powtarzaja dodaje wartość 1
+      allAuthors[authorName]++;
+    }
   } // END LOOP for each article
-  // [] insert html code to author link in article
-  authorWrapper.insertAdjacentHTML('beforeend', html);
+
+  // pętla dla każdego autora
+  for(let authorName in allAuthors) {
+    // wyjmuję wartości
+    const authorArticlesNumber = allAuthors[authorName];
+    // generate html code to author link (sidebar)
+    let authorSidebarLink = '<li><a href="#' + authorName + '">' + authorName + '</a><span> ' + authorArticlesNumber + ' </span></li>';
+    // add sidebar link code to variable
+    htmlSidebar = htmlSidebar + authorSidebarLink;
+    console.log('linki w petli:', htmlSidebar);
+  }
+  authorList.innerHTML = htmlSidebar;
+  console.log('miejsce:', authorList);
+  console.log('linki:', htmlSidebar);
+
 }
 generateAuthors();
 
@@ -319,3 +340,8 @@ function addClickListenersToAuthors() {
   }/* END LOOP: for each author */
 }
 addClickListenersToAuthors();
+
+
+
+
+
