@@ -35,7 +35,9 @@ const optArticleSelector = '.post',
   optTitleListSelector = '.titles',
   optArticleTagsSelector = '.post-tags .list',
   optArticleAuthorSelector = '.post-author',
-  optTagsListSelector = '.tags';
+  optTagsListSelector = '.tags',
+  optCloudClassCount = 5,
+  optCloudClassPrefix = 'tag-size-';
 
 function generateTitleLinks(customSelector = '') {
   /* [DONE] remove contents of titleList */
@@ -78,6 +80,10 @@ function generateTitleLinks(customSelector = '') {
   }
 }
 generateTitleLinks();
+
+function calculateTagClass(count, params) {
+
+}
 
 function generateTags() {
   /* [NEW - tags cloud] create a new variable allTags with an empty object */
@@ -165,10 +171,11 @@ function generateTags() {
 
   //START LOOP for each tag in allTags
   for(let tag in allTags) {
+    // create class name for tag
+    const tagClass = calculateTagClass(allTags[tag], tagsParams);
     // generate code of the link and add it to allTagsHTML
-    allTagsHTML += '<li><a href="#tag-"' + tag + '>' + tag + '</a><span>(' + allTags[tag] + ')</span></li>';
-
-
+    allTagsHTML += '<li><a href="#tag-' + tag + '" class="' + tagClass + '">' + tag + '</a><span>(' + allTags[tag] + ')</span></li>';
+    console.log('to link do chmuty tagów: ', allTagsHTML);
   } // END LOOP for each tag in allTags object
   console.log(allTagsHTML);
 
