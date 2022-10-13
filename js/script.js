@@ -133,9 +133,8 @@ function generateTags() {
 
     /* START LOOP: for each tag */
     for (let tag of tags) {
-      /* [DONE] generate HTML of the link */
-      //const linkTagCode = '<li><a href="#tag-' + tag + '">' + tag + '</a></li>';
-      const linkTagCodeData = {id: tag};
+      // [NEW] generate HTML of the link using html template
+      const linkTagCodeData = {id: tag, tag: tag.replace('-', ' ')};
       const linkTagCode = templates.articleTags(linkTagCodeData);
       /* [DONE] add generated code to html variable */
       html = html + linkTagCode;
@@ -211,12 +210,10 @@ function generateTags() {
 
   //START LOOP for each tag in allTags
   for (let tag in allTags) {
-    // create class name for tag
-    //tagClassName = calculateTagClass(allTags[tag], tagsParams);
-    // generate code of the link and add it to allTagsHTML
-    //allTagsHTML += '<li><a href="#tag-' + tag + '" class="' + tagClassName + '">' + tag + '</a><span>(' + allTags[tag] + ')</span></li>';
+    // generate code of the link using html template
     allTagsData.tags.push({
-      tag: tag,
+      tagId: tag,
+      tag: tag.replace('-', ' '),
       count: allTags[tag],
       className: calculateTagClass(allTags[tag], tagsParams),
 
@@ -296,7 +293,6 @@ function generateAuthors() {
   // create object of authors
   const allAuthors = {};
   // make variable for link to authors in sidebar
-  let htmlSidebar = '';
   // [DONE] for each article - START LOOP
   for (let article of articles) {
 
@@ -306,8 +302,7 @@ function generateAuthors() {
     // [DONE] get author from data-author attribute
     const authorName = article.getAttribute('data-author');
 
-    // [DONE] generate html code of link to author
-    //const authorLink = `<a href="#author-${authorName}">${authorName.replace('-', ' ')}</a>`;
+    // [DONE] generate html code of link to author using htm template
     const authorLinkData = {id: authorName, title: authorName.replace('-', ' ')};
     const authorLink = templates.articleAuthor(authorLinkData);
 
@@ -327,12 +322,7 @@ function generateAuthors() {
 
   // START LOOP for each author
   for (let authorName in allAuthors) {
-    // get out values of authors articles number
-    const authorArticlesNumber = allAuthors[authorName];
-    // generate html code to author link (sidebar)
-    //const authorSidebarLink = '<li><a href="#author-' + authorName + '">' + authorName.replace('-', ' ') + '</a><span> (' + authorArticlesNumber + ')</span></li>';
-    // add sidebar link code to variable
-    //htmlSidebar = htmlSidebar + authorSidebarLink;
+    // generate html code to author link (sidebar) using html template
     allAuthorsData.authors.push({
       authorId: authorName,
       author: authorName.replace('-', ' '),
@@ -340,7 +330,6 @@ function generateAuthors() {
     });
   } // END LOOP for each author
   authorList.innerHTML = templates.authorsList(allAuthorsData);
-  console.log('tak wygląda obiekt autoró∑:', allAuthorsData);
 }
 generateAuthors();
 
