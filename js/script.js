@@ -1,5 +1,33 @@
 'use strict';
 
+
+const opts = {
+  tagSizes: {
+    count: 5,
+    classPrefix: 'tag-size-',
+  },
+};
+
+const select = {
+  all: {
+    articles: '.post',
+    linksTo: {
+      tags: 'a[href^="#tag-"]',
+      authors: 'a[href^="#author-"]',
+    },
+  },
+  article: {
+    tags: '.post-tags .list',
+    author: '.post-author',
+    title: '.post-title',
+  },
+  listOf: {
+    titles: '.titles',
+    tags: '.tags.list',
+    authors: '.authors.list',
+  },
+};
+
 function titleClickHandler() {
 
   /* [DONE] remove class 'active' from all article links  */
@@ -30,25 +58,15 @@ function titleClickHandler() {
   choosenArticle.classList.add('active');
 }
 
-const optArticleSelector = '.post',
-  optTitleSelector = '.post-title',
-  optTitleListSelector = '.titles',
-  optArticleTagsSelector = '.post-tags .list',
-  optArticleAuthorSelector = '.post-author',
-  optAuthorsListSelector = '.authors',
-  optTagsListSelector = '.tags',
-  optCloudClassCount = 5,
-  optCloudClassPrefix = 'tag-size-';
-
 function generateTitleLinks(customSelector = '') {
   /* [DONE] remove contents of titleList */
   /* ... */
-  const titleList = document.querySelector(optTitleListSelector);
+  const titleList = document.querySelector(select.listOf.titles);
   titleList.innerHTML = '';
 
   /* [DONE] find all the articles and save them to variable: articles */
   /* ... */
-  const articles = document.querySelectorAll(optArticleSelector + customSelector);
+  const articles = document.querySelectorAll(select.all.articles + customSelector);
   let html = '';
 
   for (let article of articles) {
@@ -58,7 +76,7 @@ function generateTitleLinks(customSelector = '') {
 
     /* [DONE] find the title element */
     /* ... */
-    const articleTitleElement = article.querySelector(optTitleSelector);
+    const articleTitleElement = article.querySelector(select.article.title);
 
     /* [DONE] get the title from the title element */
     /* ... */
@@ -87,13 +105,13 @@ function generateTags() {
   let allTags = {};
 
   /* [DONE] find all articles */
-  const articles = document.querySelectorAll(optArticleSelector);
+  const articles = document.querySelectorAll(select.all.articles);
 
   /* START LOOP: for every article: */
   for (let article of articles) {
 
     /* [DONE] find tags wrapper */
-    const tagWrapper = article.querySelector(optArticleTagsSelector);
+    const tagWrapper = article.querySelector(select.article.tags);
 
     /* [DONE] make html variable with empty string */
     let html = '';
@@ -126,7 +144,7 @@ function generateTags() {
   }/* END LOOP: for every article: */
 
   /* [NEW - tags cloud] find list of tags in right column */
-  const tagList = document.querySelector(optTagsListSelector);
+  const tagList = document.querySelector(select.listOf.tags);
 
   function calculateTagsParams(tags) {
     // [DONE] create empty array for tags numbers (amount)
@@ -159,18 +177,18 @@ function generateTags() {
     const max = params.max;
 
     // max value divide by number of category
-    const categoryLength = Math.floor(max / optCloudClassCount);
+    const categoryLength = Math.floor(max / opts.tagSizes.count);
 
     if (count <= categoryLength*1) {
-      tagClassName = optCloudClassPrefix + '5';
-    } else if (count > categoryLength*1 && count <= categoryLength*2) {
-      tagClassName = optCloudClassPrefix + '4';
-    } else if (count > categoryLength*2 && count <= categoryLength*3) {
-      tagClassName = optCloudClassPrefix + '3';
-    } else if (count > categoryLength*3 && count <= categoryLength*4) {
-      tagClassName = optCloudClassPrefix + '2';
-    } else if (count > categoryLength*4 && count <= categoryLength*5) {
-      tagClassName = optCloudClassPrefix + '1';
+      tagClassName = opts.tagSizes.classPrefix + '5';
+    } else if (count > categoryLength * (opts.cloudClassCount - 4) && count <= categoryLength * (opts.cloudClassCount - 3)) {
+      tagClassName = opts.tagSizes.classPrefix + '4';
+    } else if (count > categoryLength * (opts.cloudClassCount - 3) && count <= categoryLength * (opts.cloudClassCount - 2)) {
+      tagClassName = opts.tagSizes.classPrefix + '3';
+    } else if (count > categoryLength * (opts.cloudClassCount - 2) && count <= categoryLength * (opts.cloudClassCount - 1)) {
+      tagClassName = opts.tagSizes.classPrefix + '2';
+    } else if (count > categoryLength * (opts.cloudClassCount - 1) && count <= categoryLength * opts.cloudClassCount) {
+      tagClassName = opts.tagSizes.classPrefix + '1';
     }
     return tagClassName;
   }
@@ -250,10 +268,10 @@ addClickListenersToTags();
 
 function generateAuthors() {
   // [DONE] find all articles and save them in const
-  const articles = document.querySelectorAll(optArticleSelector);
+  const articles = document.querySelectorAll(select.all.articles);
 
   // [DONE] find ul list for authors in sidebar
-  const authorList = document.querySelector(optAuthorsListSelector);
+  const authorList = document.querySelector(select.listOf.authors);
 
   // [DONE] make html variable with empty string
   let html = '';
@@ -265,7 +283,7 @@ function generateAuthors() {
   for (let article of articles) {
 
     // [DONE] find author wrapper in the article
-    const authorWrapper = article.querySelector(optArticleAuthorSelector);
+    const authorWrapper = article.querySelector(select.article.author);
 
     // [DONE] get author from data-author attribute
     const authorName = article.getAttribute('data-author');
