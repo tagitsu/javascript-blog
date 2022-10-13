@@ -32,6 +32,7 @@ const templates = {
   articleAuthor: Handlebars.compile(document.querySelector('#template-article-author').innerHTML),
   articleTags: Handlebars.compile(document.querySelector('#template-article-tags').innerHTML),
   tagCloudLink: Handlebars.compile(document.querySelector('#template-tag-cloud-link').innerHTML),
+  authorsList: Handlebars.compile(document.querySelector('#template-authors').innerHTML),
 };
 
 function titleClickHandler() {
@@ -322,17 +323,24 @@ function generateAuthors() {
       allAuthors[authorName]++;
     }
   } // END LOOP for each article
+  const allAuthorsData = {authors: []};
 
   // START LOOP for each author
   for (let authorName in allAuthors) {
     // get out values of authors articles number
     const authorArticlesNumber = allAuthors[authorName];
     // generate html code to author link (sidebar)
-    const authorSidebarLink = '<li><a href="#author-' + authorName + '">' + authorName.replace('-', ' ') + '</a><span> (' + authorArticlesNumber + ')</span></li>';
+    //const authorSidebarLink = '<li><a href="#author-' + authorName + '">' + authorName.replace('-', ' ') + '</a><span> (' + authorArticlesNumber + ')</span></li>';
     // add sidebar link code to variable
-    htmlSidebar = htmlSidebar + authorSidebarLink;
+    //htmlSidebar = htmlSidebar + authorSidebarLink;
+    allAuthorsData.authors.push({
+      authorId: authorName,
+      author: authorName.replace('-', ' '),
+      count: allAuthors[authorName],
+    });
   } // END LOOP for each author
-  authorList.innerHTML = htmlSidebar;
+  authorList.innerHTML = templates.authorsList(allAuthorsData);
+  console.log('tak wygląda obiekt autoró∑:', allAuthorsData);
 }
 generateAuthors();
 
