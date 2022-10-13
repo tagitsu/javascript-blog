@@ -261,7 +261,6 @@ function generateAuthors() {
   const allAuthors = {};
   // make variable for link to authors in sidebar
   let htmlSidebar = '';
-
   // [DONE] for each article - START LOOP
   for (let article of articles) {
 
@@ -287,12 +286,14 @@ function generateAuthors() {
       allAuthors[hrefAuthor]++;
     }
   } // END LOOP for each article
+
+
   // START LOOP for each author
   for (let hrefAuthor in allAuthors) {
     // get out values of authors articles number
     const authorArticlesNumber = allAuthors[hrefAuthor];
     // generate html code to author link (sidebar)
-    let authorSidebarLink = '<li><a href="#author-' + hrefAuthor + '">' + hrefAuthor + '</a><span> (' + authorArticlesNumber + ')</span></li>';
+    const authorSidebarLink = '<li><a href="#author-' + hrefAuthor + '">' + hrefAuthor.replace('-', ' ') + '</a><span> (' + authorArticlesNumber + ')</span></li>';
     // add sidebar link code to variable
     htmlSidebar = htmlSidebar + authorSidebarLink;
   } // END LOOP for each author
