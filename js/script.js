@@ -76,7 +76,7 @@ function generateTitleLinks(customSelector = '') {
 
   const links = document.querySelectorAll('.titles a');
 
-  for(let link of links) {
+  for (let link of links) {
     link.addEventListener('click', titleClickHandler);
   }
 }
@@ -105,7 +105,7 @@ function generateTags() {
     const tags = postTags.split(' ');
 
     /* START LOOP: for each tag */
-    for(let tag of tags) {
+    for (let tag of tags) {
       /* [DONE] generate HTML of the link */
       const linkTagCode = '<li><a href="#tag-' + tag + '">' + tag + '</a></li>';
 
@@ -113,7 +113,7 @@ function generateTags() {
       html = html + linkTagCode;
 
       /* [NEW - tags cloud] check if this link is NOT already in allTags */
-      if(!allTags.hasOwnProperty(tag)) {
+      if (!allTags.hasOwnProperty(tag)) {
         /* [NEW - tags cloud] add tag to alltags object */
         allTags[tag] = 1;
       } else {
@@ -161,7 +161,7 @@ function generateTags() {
     // max value divide by number of category
     const categoryLength = Math.floor(max / optCloudClassCount);
 
-    if(count <= categoryLength*1) {
+    if (count <= categoryLength*1) {
       tagClassName = optCloudClassPrefix + '5';
     } else if (count > categoryLength*1 && count <= categoryLength*2) {
       tagClassName = optCloudClassPrefix + '4';
@@ -180,7 +180,7 @@ function generateTags() {
   let allTagsHTML = '';
 
   //START LOOP for each tag in allTags
-  for(let tag in allTags) {
+  for (let tag in allTags) {
     // create class name for tag
     tagClassName = calculateTagClass(allTags[tag], tagsParams);
     // generate code of the link and add it to allTagsHTML
@@ -218,7 +218,7 @@ function tagClickHandler(event) {
   const foundedTags = document.querySelectorAll('a[href="' + href + '"]');
 
   /* START LOOP: for each found tag link */
-  for(let foundedTag of foundedTags) {
+  for (let foundedTag of foundedTags) {
     /* add class active */
     foundedTag.classList.add('active');
   } /* END LOOP: for each found tag link */
@@ -263,7 +263,7 @@ function generateAuthors() {
   let htmlSidebar = '';
 
   // [DONE] for each article - START LOOP
-  for(let article of articles) {
+  for (let article of articles) {
 
     // [DONE] find author wrapper in the article
     const authorWrapper = article.querySelector(optArticleAuthorSelector);
@@ -280,7 +280,7 @@ function generateAuthors() {
     html = authorLink;
     // [DONE] insert html code to author link in article
     authorWrapper.insertAdjacentHTML('beforeend', html);
-    if(!allAuthors.hasOwnProperty(hrefAuthor)) {
+    if (!allAuthors.hasOwnProperty(hrefAuthor)) {
       // add authors to object
       allAuthors[hrefAuthor] = 1;
     } else {
@@ -288,7 +288,7 @@ function generateAuthors() {
     }
   } // END LOOP for each article
   // START LOOP for each author
-  for(let hrefAuthor in allAuthors) {
+  for (let hrefAuthor in allAuthors) {
     // get out values of authors articles number
     const authorArticlesNumber = allAuthors[hrefAuthor];
     // generate html code to author link (sidebar)
@@ -317,13 +317,13 @@ function authorClickHandler(event) {
   const activeAuthors = document.querySelectorAll('a.active[href^="#author-"]');
 
   /* [DONE] remove class active LOOP */
-  for(let activeAuthor of activeAuthors) {
+  for (let activeAuthor of activeAuthors) {
     activeAuthor.classList.remove('active');
   }
   /* [DONE] find all authors links with "href" attribute equal to the "href" constant */
   const foundedAuthors = document.querySelectorAll('a[href="' + href + '"]');
 
-  for(let foundedAuthor of foundedAuthors) {
+  for (let foundedAuthor of foundedAuthors) {
     /* add class active */
     foundedAuthor.classList.add('active');
   }
@@ -337,7 +337,7 @@ function addClickListenersToAuthors() {
   const authorLinks = document.querySelectorAll('.post-author a');
 
   // START LOOP: for each author
-  for(let authorLink of authorLinks) {
+  for (let authorLink of authorLinks) {
     /* [DONE] add authorClickHandler as event listener for that link */
     authorLink.addEventListener('click', authorClickHandler);
   }/* END LOOP: for each author */
