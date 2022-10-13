@@ -268,32 +268,31 @@ function generateAuthors() {
     const authorWrapper = article.querySelector(optArticleAuthorSelector);
 
     // [DONE] get author from data-author attribute
-    const hrefAuthor = article.getAttribute('data-author');
-    const authorName = hrefAuthor.replace('-', ' ');
+    const authorName = article.getAttribute('data-author');
 
     // [DONE] generate html code of link to author
-    const authorLink = `<a href="#author-${hrefAuthor}">${authorName}</a>`;
+    const authorLink = `<a href="#author-${authorName}">${authorName.replace('-', ' ')}</a>`;
 
 
     // [DONE] add generated code to html variable
     html = authorLink;
     // [DONE] insert html code to author link in article
     authorWrapper.insertAdjacentHTML('beforeend', html);
-    if (!allAuthors.hasOwnProperty(hrefAuthor)) {
+    if (!allAuthors.hasOwnProperty(authorName)) {
       // add authors to object
-      allAuthors[hrefAuthor] = 1;
+      allAuthors[authorName] = 1;
     } else {
-      allAuthors[hrefAuthor]++;
+      allAuthors[authorName]++;
     }
   } // END LOOP for each article
 
 
   // START LOOP for each author
-  for (let hrefAuthor in allAuthors) {
+  for (let authorName in allAuthors) {
     // get out values of authors articles number
-    const authorArticlesNumber = allAuthors[hrefAuthor];
+    const authorArticlesNumber = allAuthors[authorName];
     // generate html code to author link (sidebar)
-    const authorSidebarLink = '<li><a href="#author-' + hrefAuthor + '">' + hrefAuthor.replace('-', ' ') + '</a><span> (' + authorArticlesNumber + ')</span></li>';
+    const authorSidebarLink = '<li><a href="#author-' + authorName + '">' + authorName.replace('-', ' ') + '</a><span> (' + authorArticlesNumber + ')</span></li>';
     // add sidebar link code to variable
     htmlSidebar = htmlSidebar + authorSidebarLink;
   } // END LOOP for each author
@@ -316,7 +315,6 @@ function authorClickHandler(event) {
 
   /* [DONE] find author link with class active */
   const activeAuthors = document.querySelectorAll('a.active[href^="#author-"]');
-
   /* [DONE] remove class active LOOP */
   for (let activeAuthor of activeAuthors) {
     activeAuthor.classList.remove('active');
@@ -341,6 +339,15 @@ function addClickListenersToAuthors() {
   for (let authorLink of authorLinks) {
     /* [DONE] add authorClickHandler as event listener for that link */
     authorLink.addEventListener('click', authorClickHandler);
-  }/* END LOOP: for each author */
+  } /* END LOOP: for each author */
+
+  // [DONE] find all links to authors
+  const authorSidebarLinks = document.querySelectorAll('.authors a');
+
+  // START LOOP: for each author
+  for (let authorSidebarLink of authorSidebarLinks) {
+    /* [DONE] add authorClickHandler as event listener for that link */
+    authorSidebarLink.addEventListener('click', authorClickHandler);
+  } /* END LOOP: for each author */
 }
 addClickListenersToAuthors();
